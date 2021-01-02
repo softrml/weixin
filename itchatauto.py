@@ -65,14 +65,6 @@ def theGroupMsg(msg):
         if good in msg.actualNickName:
             print("To %s: %s"%(good,random.choice(goodMsgs)))
 
-'''
->>> dt = datetime.fromordinal(733828)
->>> dt
-datetime.datetime(2010, 2, 25, 0, 0)
->>> dt.strftime('%Y%m%d')
-'20100225'
-'''
-
 from datetime import datetime
 def printGMsg(msg):
     
