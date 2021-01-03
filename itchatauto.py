@@ -35,7 +35,7 @@ import random
 last_msg = None
 theGroupUser = None
 theGroupName = 'Alberta华人参政议政新群'
-theBadGuys = ['Ev青','獻世臘肉擺地攤廣大尚']
+theBadGuys = ['Eve青','獻世臘肉擺地攤廣大尚']
 theGoodGuys =['出发']
 badMsgs =['少说点废话不行啊？','除了废话谎话傻话，还会点其他的不？','少说废话谎话傻话']
 goodMsgs = ['[强]','[强][强]','[强][强][强]','[强][强][强][强]']
@@ -45,7 +45,9 @@ focusMsgs =['孙子']
 def helperMsg(msg):
     if '#add good msg#' in msg.content:
         goodMsgs.append(msg.content.replace('#add good msg#',''))
-        print('Good Added:',goodMsgs)        
+        print('Good Added:',goodMsgs)    
+        if theGroupUser != None:
+            theGroupUser.send
 
 def needIgnore(txt):
     for ig in ignoreMsgs:
@@ -55,9 +57,11 @@ def needIgnore(txt):
     return False
 
 def theGroupMsg(msg):
+    if theGroupUser == None:
+        theGroupUser = msg.User
+
     for bad in theBadGuys:
         if bad in msg.actualNickName:
-            
             if not needIgnore(msg.content):
                 print("To %s: %s"%(bad,random.choice(badMsgs)))
 
@@ -125,7 +129,7 @@ def text_reply(msg):
     printGMsg(msg)
 
 '''
-@itchat.msg_register(TEXT, isGroupChat=True)
+@itchat.msg_register(TEXT, isGroupChat=True)`
 def text_reply(msg):
     if msg.isAt:
         msg.user.send(msg.text.replace('\@任茂林','\@%s' % (msg.actualNickName).replace('茂林',msg.actualNickName))
