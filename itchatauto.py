@@ -47,6 +47,16 @@ goodMsgs = ['[强]','[强][强]','[强][强][强]','[强][强][强][强]']
 ignoreMsgs = ['Alberta','確診']
 focusMsgs =['孙子']
 
+def listToFile(lst,fn):
+    f = open(fn,'w')
+    f.writelines(lst)
+    f.close()
+    
+def fileToList(fn,lst):
+    f = open(fn)
+    lst = f.readlines()
+    f.close()
+
 def helperMsg(msg):
     global theGroupUser
     if '#add good msg#' in msg.content:
