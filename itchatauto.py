@@ -48,11 +48,10 @@ ignoreMsgs = ['Alberta','確診']
 focusMsgs =['孙子']
 
 def helperMsg(msg):
+    global theGroupUser
     if '#add good msg#' in msg.content:
         goodMsgs.append(msg.content.replace('#add good msg#',''))
-        print('Good Added:',goodMsgs)    
-        if theGroupUser != None:
-            theGroupUser.send
+        itchat.send('Good Added:%s'%goodMsgs, toUserName='filehelper')
 
 def needIgnore(txt):
     for ig in ignoreMsgs:
@@ -62,6 +61,7 @@ def needIgnore(txt):
     return False
 
 def theGroupMsg(msg):
+    global theGroupUser
     if theGroupUser == None:
         theGroupUser = msg.User
 
@@ -73,6 +73,8 @@ def theGroupMsg(msg):
     for good in theGoodGuys:
         if good in msg.actualNickName:
             print("To %s: %s"%(good,random.choice(goodMsgs)))
+        #if theGroupUser != None:
+        #    theGroupUser.send('?')
 
 from datetime import datetime
 def printGMsg(msg):
