@@ -2,6 +2,9 @@
 '''
 Version C added.
 
+d393af8c0dcebd636bfd5f34c36ff5c12d9476ec
+e010a340c576eadba56ade27b7da01ce9ca14817
+
 import itchat
 import time
 
