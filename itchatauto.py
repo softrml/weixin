@@ -1,5 +1,7 @@
 #coding=utf8
 '''
+Version C added.
+
 import itchat
 import time
 
