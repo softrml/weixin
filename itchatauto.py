@@ -37,30 +37,29 @@ import itchat,time
 import re
 import random
 
-last_msg = None
-theGroupUser = None
-theGroupName = 'Alberta华人参政议政新群'
-theBadGuys = ['Eve青','獻世臘肉擺地攤廣大尚']
-theGoodGuys =['出发']
-badMsgs =['少说点废话不行啊？','除了废话谎话傻话，还会点其他的不？','少说废话谎话傻话']
-goodMsgs = ['[强]','[强][强]','[强][强][强]','[强][强][强][强]']
-ignoreMsgs = ['Alberta','確診']
-focusMsgs =['孙子']
-
 def listToFile(lst,fn):
-    f = open(fn,'w')
-    f.writelines(lst)
-    f.close()
+    try:
+        f = open(fn,'w')
+        f.writelines(lst)
+        f.close()
+    except:
+        print('Fail to save:',fn)
     
-def fileToList(fn,lst):
-    f = open(fn)
-    lst = f.readlines()
-    f.close()
+def fileToList(fn):
+    try:
+        f = open(fn)
+        lst = f.readlines()
+        f.close()
+    except:
+         print('Fail to load:',fn)
+         return []
+    return lst
 
 def helperMsg(msg):
     global theGroupUser
     if '#add good msg#' in msg.content:
         goodMsgs.append(msg.content.replace('#add good msg#',''))
+        listToFile(goodMsgs,'goodMsgs.txt')
         itchat.send('Good Added:%s'%goodMsgs, toUserName='filehelper')
 
 def needIgnore(txt):
@@ -75,12 +74,12 @@ def theGroupMsg(msg):
     if theGroupUser == None:
         theGroupUser = msg.User
 
-    for bad in theBadGuys:
+    for bad in badGuys:
         if bad in msg.actualNickName:
             if not needIgnore(msg.content):
                 print("To %s: %s"%(bad,random.choice(badMsgs)))
 
-    for good in theGoodGuys:
+    for good in goodGuys:
         if good in msg.actualNickName:
             print("To %s: %s"%(good,random.choice(goodMsgs)))
         #if theGroupUser != None:
@@ -268,6 +267,15 @@ def get_all_chatroom_user_list():
         
     #关闭工作表
     workbook.save("list.xls")#.close()
+
+last_msg = None
+theGroupUser = None
+theGroupName = 'Alberta华人参政议政新群'
+badGuys = fileToList('badguys.txt')
+goodGuys =fileToList('goodguys.txt')
+badMsgs = fileToList('badmsgs.txt')
+goodMsgs = fileToList('goodmsgs.txt')
+ignoreMsgs = fileToList('ignoremsgs.txt')
 
 
 if __name__ == '__main__':
