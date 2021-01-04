@@ -36,24 +36,8 @@ import xlwt
 import itchat,time
 import re
 import random
+from rmlHelper import *
 
-def listToFile(lst,fn):
-    try:
-        f = open(fn,'w')
-        f.writelines(lst)
-        f.close()
-    except:
-        print('Fail to save:',fn)
-    
-def fileToList(fn):
-    try:
-        f = open(fn)
-        lst = f.readlines()
-        f.close()
-    except:
-         print('Fail to load:',fn)
-         return []
-    return lst
 
 def helperMsg(msg):
     global theGroupUser
